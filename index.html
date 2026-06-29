@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinTrack Pro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section class="auth-page" id="authPage">
+    <div class="auth-card">
+      <div class="brand-mark">FP</div>
+      <p class="eyebrow">Browser Based Finance App</p>
+      <h1 id="authHeading">Welcome Back</h1>
+      <p class="auth-copy" id="authCopy">Login to continue tracking your income and expenses.</p>
+
+      <p class="message" id="authMessage"></p>
+
+      <form class="auth-form" id="loginForm">
+        <label>
+          Username
+          <input type="text" id="loginUsername" placeholder="Enter username" autocomplete="username" required>
+        </label>
+        <label>
+          Password
+          <input type="password" id="loginPassword" placeholder="Enter password" autocomplete="current-password" required>
+        </label>
+        <button class="primary-btn full-btn" type="submit">Login</button>
+      </form>
+
+      <form class="auth-form hidden" id="registerForm">
+        <label>
+          Username
+          <input type="text" id="registerUsername" placeholder="Choose username" autocomplete="username" required>
+        </label>
+        <label>
+          Password
+          <input type="password" id="registerPassword" placeholder="Create password" autocomplete="new-password" required>
+        </label>
+        <button class="primary-btn full-btn" type="submit">Register</button>
+      </form>
+
+      <p class="auth-link" id="loginLink">
+        New user?
+        <button type="button" id="showRegisterBtn">Register here</button>
+      </p>
+      <p class="auth-link hidden" id="registerLink">
+        Already registered?
+        <button type="button" id="showLoginBtn">Login here</button>
+      </p>
+    </div>
+  </section>
+
+  <div class="app hidden" id="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Personal Finance Tracker</p>
+        <h1>FinTrack Pro</h1>
+      </div>
+      <div class="top-actions">
+        <button class="ghost-btn" id="themeToggle" type="button">Dark Mode</button>
+        <button class="ghost-btn" id="logoutBtn" type="button">Logout</button>
+        <button class="primary-btn" id="openModalBtn" type="button">+ Add Transaction</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="balance-hero">
+        <div>
+          <p class="welcome">Welcome, <span id="displayName">Guest</span></p>
+          <h2 id="balanceValue">$0.00</h2>
+          <p class="hero-note">Your balance updates instantly and stays saved in this browser.</p>
+        </div>
+        <div class="currency-badge">
+          <span>Currency</span>
+          <strong id="activeCurrency">USD</strong>
+        </div>
+      </section>
+
+      <section class="stats-grid" aria-label="Financial summary">
+        <article class="stat-card income-line">
+          <span>Total Income</span>
+          <strong id="incomeValue">$0.00</strong>
+        </article>
+        <article class="stat-card expense-line">
+          <span>Total Expense</span>
+          <strong id="expenseValue">$0.00</strong>
+        </article>
+        <article class="stat-card neutral-line">
+          <span>Total Transactions</span>
+          <strong id="countValue">0</strong>
+        </article>
+      </section>
+
+      <section class="main-grid">
+        <article class="panel chart-panel">
+          <div class="panel-title">
+            <div>
+              <p class="eyebrow">Cash Flow</p>
+              <h3>Income vs Expense</h3>
+            </div>
+          </div>
+          <div class="chart" id="cashFlowChart"></div>
+          <div class="chart-legend">
+            <span><i class="legend-income"></i> Income</span>
+            <span><i class="legend-expense"></i> Expense</span>
+          </div>
+        </article>
+
+        <article class="panel settings-panel">
+          <div class="panel-title">
+            <div>
+              <p class="eyebrow">Profile</p>
+              <h3>Settings</h3>
+            </div>
+          </div>
+          <form class="stack-form" id="profileForm">
+            <label>
+              Name
+              <input type="text" id="profileName" placeholder="Enter your name">
+            </label>
+            <label>
+              Preferred Currency
+              <select id="currencySelect">
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (&euro;)</option>
+                <option value="GBP">GBP (&pound;)</option>
+                <option value="INR">INR (&#8377;)</option>
+                <option value="JPY">JPY (&yen;)</option>
+              </select>
+            </label>
+            <button class="primary-btn full-btn" type="submit">Save Settings</button>
+          </form>
+          <button class="danger-btn full-btn" id="resetBtn" type="button">Reset All Data</button>
+        </article>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title table-title">
+          <div>
+            <p class="eyebrow">History</p>
+            <h3>Transactions</h3>
+          </div>
+          <div class="history-tools">
+            <input type="search" id="searchInput" placeholder="Search transactions">
+            <select id="filterSelect" aria-label="Filter transactions">
+              <option value="all">All Types</option>
+              <option value="income">Income Only</option>
+              <option value="expense">Expense Only</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="transactionBody"></tbody>
+          </table>
+        </div>
+        <p class="empty-state" id="emptyState">No transactions found. Add one to get started.</p>
+      </section>
+    </main>
+
+    <div class="modal" id="transactionModal" aria-hidden="true">
+      <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalHeading">
+        <div class="modal-head">
+          <h3 id="modalHeading">Add Transaction</h3>
+          <button class="icon-btn" id="closeModalBtn" type="button" aria-label="Close">&times;</button>
+        </div>
+
+        <form class="stack-form" id="transactionForm">
+          <label>
+            Type
+            <select id="typeInput">
+              <option value="expense">Expense</option>
+              <option value="income">Income</option>
+            </select>
+          </label>
+          <label>
+            Description
+            <input type="text" id="descriptionInput" placeholder="Salary, groceries, recharge" required>
+          </label>
+          <label>
+            Amount
+            <input type="number" id="amountInput" min="1" step="0.01" placeholder="0.00" required>
+          </label>
+          <label>
+            Date
+            <input type="date" id="dateInput" required>
+          </label>
+          <label>
+            Category
+            <select id="categoryInput" required>
+              <option value="">Select category</option>
+              <option>Salary</option>
+              <option>Food</option>
+              <option>Shopping</option>
+              <option>Bills</option>
+              <option>Travel</option>
+              <option>Entertainment</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <button class="primary-btn full-btn" type="submit">Save Transaction</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
