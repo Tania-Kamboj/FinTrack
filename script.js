@@ -1,6 +1,3 @@
-// FinTrack Pro - Simple JavaScript Version
-// Data backend/database ki jagah browser localStorage me save hota hai.
-
 var currencySymbols = {
   USD: "$",
   EUR: "\u20ac",
@@ -16,7 +13,6 @@ var userName = "Guest";
 var selectedCurrency = "USD";
 var darkMode = false;
 
-// Auth elements
 var authPage = document.getElementById("authPage");
 var app = document.getElementById("app");
 var authHeading = document.getElementById("authHeading");
@@ -27,7 +23,6 @@ var registerForm = document.getElementById("registerForm");
 var loginLink = document.getElementById("loginLink");
 var registerLink = document.getElementById("registerLink");
 
-// Dashboard elements
 var displayName = document.getElementById("displayName");
 var balanceValue = document.getElementById("balanceValue");
 var incomeValue = document.getElementById("incomeValue");
@@ -42,7 +37,6 @@ var dateInput = document.getElementById("dateInput");
 var searchInput = document.getElementById("searchInput");
 var filterSelect = document.getElementById("filterSelect");
 
-// Button/form events
 document.getElementById("showRegisterBtn").onclick = showRegister;
 document.getElementById("showLoginBtn").onclick = showLogin;
 loginForm.onsubmit = loginUser;
@@ -471,8 +465,6 @@ function shortDate(dateValue) {
 function capitalize(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
-
-// Page load hone par check karo user already login hai ya nahi.
 if (currentUser !== "") {
   openApp();
 } else {
